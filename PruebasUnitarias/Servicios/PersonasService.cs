@@ -18,32 +18,23 @@ namespace PruebasUnitarias.Servicios
 
        public bool EsValida(Persona persona)
         {
-            bool valida = true;
-
+        
            if ( string.IsNullOrWhiteSpace(persona.Nombres))
             {
-                Errores.Add("Nombre no válido");
-
-                valida = false;
+                Errores.Add("Nombre no válido");                
             }
  
             if (persona.Edad < 18 )
             {
                 Errores.Add("La edad debe mayor a 18");
-
-                valida = false;
             }
 
             if (persona.Edad > 50)
             {
                 Errores.Add("La edad no debe mayor a 50");
-
-                valida = false;
             }
 
-
-            return valida;
-
+            return !Errores.Any();
 
         }
 
