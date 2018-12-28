@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using PruebasUnitarias.Controllers;
 using PruebasUnitarias.Models;
 using PruebasUnitarias.Servicios;
@@ -73,10 +75,19 @@ namespace Personas.Tests
         public void CrearPersona_SiObjetoPersonaEsInvalidoSeAsignaAViewBag()
         {
             var servicioPersonas = new ServicioPersonasDummy();
-
-            HomeController controller = new HomeController(servicioPersonas);
-
             Persona persona = new Persona();
+
+            var moqServicioPersonas = new Mock<IPersonasService>();
+
+            //Cuando se llame al métdo es EsValida se va a retornar siempre false.      
+            moqServicioPersonas.Setup(sp => sp.EsValida(persona)).Returns(false);
+
+            //Cuando se llame al Get Errores se retornar un nuevo listado de string "Error".
+            moqServicioPersonas.SetupGet(e => e.Errores).Returns(new List<string> { "Error" });
+
+            // con .Object obtenemos acceso a la instancia del objeto que implemente la interfaz 'IPersonasService'.
+            HomeController controller = new HomeController(moqServicioPersonas.Object);
+            
 
             var res = controller.CrearPesona(persona);
 
