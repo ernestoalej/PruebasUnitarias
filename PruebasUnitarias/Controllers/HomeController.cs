@@ -10,13 +10,8 @@ namespace PruebasUnitarias.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPersonasService personasService;
-
-        public HomeController()
-        {
-
-        }
-
+        private IPersonasService personasService;
+       
         public HomeController(IPersonasService personasService)
         {
             this.personasService = personasService;

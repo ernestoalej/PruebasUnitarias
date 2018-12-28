@@ -32,7 +32,7 @@ namespace PruebasUnitarias.App_Start
             // For instance:
             // container.Register<IUserRepository, SqlUserRepository>(Lifestyle.Scoped);
 
-            container.Register<IServicioPersona, PersonasService>(Lifestyle.Scoped);
+            container.Register<IPersonasService, PersonasService>(Lifestyle.Scoped);
         }
     }
 }

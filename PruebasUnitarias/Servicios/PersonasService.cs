@@ -6,9 +6,9 @@ using System.Web;
 
 namespace PruebasUnitarias.Servicios
 {
-    public class PersonasService
+    public class PersonasService : IPersonasService
     {
-        public List<string> Errores;
+        public List<string> Errores { get; set; }
         
         public PersonasService()
         {
@@ -16,7 +16,7 @@ namespace PruebasUnitarias.Servicios
         }
 
 
-       public bool EsValida(Persona persona)
+        public bool EsValida(Persona persona)
         {
         
            if ( string.IsNullOrWhiteSpace(persona.Nombres))
