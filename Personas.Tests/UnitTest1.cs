@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PruebasUnitarias.Controllers;
 using PruebasUnitarias.Models;
 using PruebasUnitarias.Servicios;
 
@@ -65,6 +67,21 @@ namespace Personas.Tests
             var resultado = _servicio.Errores.Any();
 
             Assert.IsFalse(resultado);
+        }
+
+        [TestMethod]
+        public void CrearPersona_SiObjetoPersonaEsInvalidoSeAsignaAViewBag()
+        {
+            var servicioPersonas = new ServicioPersonasDummy();
+
+            HomeController controller = new HomeController(servicioPersonas);
+
+            Persona persona = new Persona();
+
+            var res = controller.CrearPesona(persona);
+
+            Assert.IsNotNull(res.ViewBag.MensajeError);
+
         }
     }
 }

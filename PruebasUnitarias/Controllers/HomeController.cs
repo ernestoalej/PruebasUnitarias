@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PruebasUnitarias.Models;
+using PruebasUnitarias.Servicios;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +10,20 @@ namespace PruebasUnitarias.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private readonly IPersonasService personasService;
+
+        public HomeController()
         {
+
+        }
+
+        public HomeController(IPersonasService personasService)
+        {
+            this.personasService = personasService;
+        }
+
+        public ActionResult Index()
+        {            
             return View();
         }
 
@@ -25,6 +39,19 @@ namespace PruebasUnitarias.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ViewResult CrearPesona(Persona persona)
+        {
+            if (!personasService.EsValida(persona)){
+
+                ViewBag.MensajeError = personasService.Errores[0];
+
+                return View();
+            }
+
+            return View();
+
         }
     }
 }
